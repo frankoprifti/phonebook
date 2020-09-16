@@ -12,5 +12,6 @@ cellphone: null,
 },
 }
 To check a demo of the project you can check the site
-phonebookfp.netlify.app
+https://phonebookfp.herokuapp.com/
+
 Datas are saved on localstorage of the browser
