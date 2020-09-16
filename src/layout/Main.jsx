@@ -6,6 +6,7 @@ import "./index.css";
 export default function Main() {
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
+  const [data, setData] = useState([]);
   const [newContact, setNewContact] = useState({
     id: null,
     firstname: null,
@@ -22,7 +23,12 @@ export default function Main() {
   const getFromStorage = async () => {
     var dataFromStorage = await localStorage.getItem("data");
     var dataParsed = JSON.parse(dataFromStorage);
-    setData(dataParsed);
+    if (dataParsed != null) {
+      setData(dataParsed);
+    } else {
+      setData([]);
+    }
+
     setTimeout(() => {
       setLoading(false);
     }, 350);
@@ -30,7 +36,7 @@ export default function Main() {
   useEffect(() => {
     getFromStorage();
   }, []);
-  const [data, setData] = useState([]);
+
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -63,7 +69,13 @@ export default function Main() {
   };
   const addNew = () => {
     if (newContact.firstname && newContact.surname) {
-      var stateData = [...data];
+      var stateData;
+
+      if (data == []) {
+        stateData = data;
+      } else {
+        stateData = [...data];
+      }
       stateData.push(newContact);
       setData(stateData);
       setNewContact({
